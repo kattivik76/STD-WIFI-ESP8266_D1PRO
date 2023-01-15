@@ -10,7 +10,7 @@ on: push
 jobs:
   main:
     name: Main
-    runs-on: ubuntu-latest
+    #runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - name: Setup Python
