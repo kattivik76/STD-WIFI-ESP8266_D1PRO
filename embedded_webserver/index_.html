@@ -1,0 +1,222 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<title>STP-WIFI-D1PRO visualizer </title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="Description" content="Multipoint temperature sensor visualizer">
+<meta name="author" content="Alessandro Migliorini">
+<link rel="stylesheet" type="text/css" href="buttons.css">
+<link rel="stylesheet" type="text/css" href="styles.css">
+
+	<script type="text/javascript" src="functions.js"></script>
+	
+<style type="text/css">
+@import url("mediaresponsive.css");
+</style>
+</head>
+<SCRIPT>
+var xmlHttp=createXmlHttpObject();
+function createXmlHttpObject(){
+ if(window.XMLHttpRequest){
+    xmlHttp=new XMLHttpRequest();
+ }else{
+    xmlHttp=new ActiveXObject('Microsoft.XMLHTTP');
+ }
+ return xmlHttp;
+}
+function process(){
+ if(xmlHttp.readyState==0 || xmlHttp.readyState==4){
+   xmlHttp.open('PUT','xml',true);
+   xmlHttp.onreadystatechange=handleServerResponse;
+   xmlHttp.send(null);
+ }
+ setTimeout('process()',30000 );
+}
+function handleServerResponse(){
+ if(xmlHttp.readyState==4 && xmlHttp.status==200){
+   xmlResponse=xmlHttp.responseXML;
+   x = xmlResponse.getElementsByTagName('meas');
+   for (i = 0; i < x.length ;i++) {
+     var pointer;
+     var temp;
+     pointer = i + 1;
+     temp = 'r' + pointer + 'c1';
+     document.getElementById(temp).innerHTML = pointer;
+     temp = 'r' + pointer + 'c2';
+     document.getElementById(temp).innerHTML = x[i].childNodes[0].nodeValue;
+     //document.getElementById('r1c1').innerHTML = temp;
+     if (x[i].childNodes[0].nodeValue > 35.00) {
+       document.getElementById(temp).style.color = "red"
+     }
+     else if (x[i].childNodes[0].nodeValue < 15.00) {
+       document.getElementById(temp).style.color = "blue"
+     }
+     else {
+       document.getElementById(temp).style.color = "black"
+     }
+   }
+ }
+}
+/*	
+      function openForm() {
+        document.getElementById("loginPopup").style.display="block";
+      }
+      
+      function closeForm() {
+        document.getElementById("loginPopup").style.display= "none";
+      }
+      // When the user clicks anywhere outside of the modal, close it
+
+      window.onclick = function(event) {
+        var modal = document.getElementById('loginPopup');
+        if (event.target == modal) {
+          closeForm();
+        }
+      }
+      var attempt = 3; // Variable to count number of attempts.
+// Below function Executes on click of login button.
+function validate(){
+username = document.getElementById("username").value;
+password = document.getElementById("password").value;
+if ( username == "admin" && password == "admin"){
+	delete username;
+	delete password;
+alert ("Login successfully");
+window.location = "settings.html"; // Redirecting to other page.
+return false;
+}
+else{
+attempt --;// Decrementing by one.
+alert("You have left "+attempt+" attempt;");
+// Disabling fields after 3 attempts.
+if( attempt == 0){
+document.getElementById("username").disabled = true;
+document.getElementById("password").disabled = true;
+document.getElementById("submit").disabled = true;
+return false;
+}
+}
+}*/
+</SCRIPT>
+<BODY onload='process()'>
+<table width="80%" align=center>
+<tr>
+<td style='text-align:center;vertical-align:middle'>
+<div class="header">
+<img src="logo.png" alt="logo">
+</div>
+<h1>Sonda termometrica ESP_4758CC </h1>
+<h2>TAG:  sonda 2 - silos 5 - grano</h2><h3>Numero di punti: 12</h3></td>
+</tr>
+</table>
+<center>
+<table class=blueTable>
+<thead>
+<tr>
+<th>Punto</th>
+<th>Misura</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td id=r1c1 class=sensors>
+1</td>
+<td id=r1c2 class=measures>
+20.25</td>
+</tr>
+<tr>
+<td id=r2c1>
+2</td>
+<td id=r2c2>
+20.37</td>
+</tr>
+<tr>
+<td id=r3c1>
+3</td>
+<td id=r3c2>
+20.31</td>
+</tr>
+<tr>
+<td id=r4c1>
+4</td>
+<td id=r4c2>
+20.31</td>
+</tr>
+<tr>
+<td id=r5c1>
+5</td>
+<td id=r5c2>
+20.50</td>
+</tr>
+<tr>
+<td id=r6c1>
+6</td>
+<td id=r6c2>
+20.37</td>
+</tr>
+<tr>
+<td id=r7c1>
+7</td>
+<td id=r7c2>
+20.56</td>
+</tr>
+<tr>
+<td id=r8c1>
+8</td>
+<td id=r8c2>
+20.62</td>
+</tr>
+<tr>
+<td id=r9c1>
+9</td>
+<td id=r9c2>
+20.56</td>
+</tr>
+<tr>
+<td id=r10c1>
+10</td>
+<td id=r10c2>
+20.75</td>
+</tr>
+<tr>
+<td id=r11c1>
+11</td>
+<td id=r11c2>
+20.88</td>
+</tr>
+<tr>
+<td id=r12c1>
+12</td>
+<td id=r12c2>
+20.81</td>
+</tr>
+</tbody>
+</table>
+<table width="80%" align=center>
+<tr>
+<td style='text-align:left;vertical-align:middle'>
+<button class="btn success" onclick="openForm()">Settings</button>
+<button class="btn warning" onclick="location.href='update'">OTA Update FW</button>
+</td>
+</tr>
+</table>
+	<div id="loginPopup">
+      <div class="form-popup" id="popupForm">
+        <form class="form-container">
+          <h2>Please Log in</h2>
+          <label for="email">
+          <strong>Username</strong>
+          </label>
+          <input type="text" id="username" placeholder="username" name="username" required>
+			<label for="password">
+			<strong>Password</strong>
+			</label>
+          <input type="password" id="password" placeholder="Your Password" name="password" required>
+          <button type="button" class="btn" onclick='validate()'>Log in</button>
+          <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+      </div>
+    </div>
+</BODY>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STD-WIFI-SETTINGS</title>
+<link rel="stylesheet" type="text/css" href="view.css" media="all">
+<link rel="stylesheet" type="text/css" href="buttons.css">
+<script type="text/javascript" src="view.js"></script>
+
+<script type="text/javascript">
+
+var actual_JSON;
+var Chip_ID;
+
+function loadJSON(callback) {   
+
+    var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+    xobj.open('GET', 'config.json', true); 						// the path to your file
+    xobj.onreadystatechange = function () {
+          if (xobj.readyState == 4 && xobj.status == "200") {
+            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+            callback(xobj.responseText);
+          }
+    };
+    xobj.send(null);  
+ }
+ 
+function init() {
+ loadJSON(function(response) {
+  // Parsing JSON string into object
+  	actual_JSON = JSON.parse(response);
+	
+	var firmware_id = actual_JSON.MQTT_FIRMWARE_ID;
+	var firmware_ver = actual_JSON.MQTT_FIRMWARE_VER;
+	var firmware_str = "Firmware ID: "
+	
+	firmware_str += firmware_id;
+	firmware_str += " - Firmware version: v"
+	firmware_str += firmware_ver;
+	
+	Chip_ID = actual_JSON.CHIP_ID;	
+	
+	document.getElementById("node_wifi_settings").value = actual_JSON.NODE_WIFI_SETTINGS;
+	document.getElementById("hostname_type").value = actual_JSON.NODE_WIFI_TYPE;
+	document.getElementById("hostname_suffix").value = actual_JSON.HOSTNAME_SUFFIX;	
+	document.getElementById("user_hostname").value = actual_JSON.USER_HOSTNAME;
+	document.getElementById("hostname").value = actual_JSON.HOSTNAME;
+	document.getElementById("wifi_ap_password").value = actual_JSON.WIFI_AP_PASSWORD;
+	
+	document.getElementById("ftp_server").value = actual_JSON.FTP_SERVER;
+	document.getElementById("ftp_server_tcp_port").value = actual_JSON.FTP_SERVER_TCP_PORT;
+	document.getElementById("ftp_username").value = actual_JSON.FTP_USERNAME;
+	document.getElementById("ftp_password").value = actual_JSON.FTP_PASSWORD;	
+	
+	document.getElementById("sample").value = actual_JSON.SAMPLE;
+	document.getElementById("tmax").value = actual_JSON.TMAX;
+	document.getElementById("tmin").value = actual_JSON.TMIN;
+	document.getElementById("userdescriptions").value = actual_JSON.USERDESCRIPTIONS;
+	document.getElementById("tag").innerHTML = "TAG: " + actual_JSON.USERDESCRIPTIONS;
+	
+	document.getElementById("firmware").innerHTML = firmware_str;
+	
+	document.getElementById("uri").value = actual_JSON.URI;
+	document.getElementById("uri_ota").value = actual_JSON.URI_OTA;
+	document.getElementById("uri_settings").value = actual_JSON.URI_SETTINGS;
+	document.getElementById("uri_readconfig").value = actual_JSON.URI_READCONFIG;
+	
+	document.getElementById("mqtt_wifi_password").value = actual_JSON.MQTT_WIFI_PASSWORD;
+	document.getElementById("mqtt_mesh_password").value = actual_JSON.MQTT_MESH_PASSWORD;
+	document.getElementById("mqtt_server").value = actual_JSON.MQTT_SERVER;
+	document.getElementById("mqtt_server_tcp_port").value = actual_JSON.MQTT_SERVER_TCP_PORT;
+	document.getElementById("mqtt_topic_in").value = actual_JSON.MQTT_TOPIC_IN;
+	document.getElementById("mqtt_topic_out").value = actual_JSON.MQTT_TOPIC_OUT;
+	document.getElementById("as_mesh_secure").checked = actual_JSON.AS_MESH_SECURE;
+	document.getElementById("as_mqtt_secure").checked = actual_JSON.AS_MQTT_SECURE;
+		
+	switch (actual_JSON.NODE_WIFI_SETTINGS) {
+	  case 0: // AS_WIFI_STATION 
+		//Comandi eseguiti quando il valore dell'espressione coincide con valore1
+		document.getElementById("li_wifi_ap_password").style.display = "none";
+		document.getElementById("li_mqtt_wifi_password").style.display = "none";
+		document.getElementById("li_mqtt_mesh_password").style.display = "none";
+		document.getElementById("li_mqtt_server").style.display = "none";
+		document.getElementById("li_mqtt_server_tcp_port").style.display = "none";
+		document.getElementById("li_mqtt_topic_in").style.display = "none";
+		document.getElementById("li_mqtt_topic_out").style.display = "none";
+		document.getElementById("li_mesh_select").style.display = "none";		
+		break;
+	  case 1: // AS_WIFI_ACCESS_POINT
+		//Comandi eseguiti quando il valore dell'espressione coincide con valore2
+		document.getElementById("li_mqtt_wifi_password").style.display = "none";
+		document.getElementById("li_mqtt_mesh_password").style.display = "none";
+		document.getElementById("li_mqtt_server").style.display = "none";
+		document.getElementById("li_mqtt_server_tcp_port").style.display = "none";
+		document.getElementById("li_mqtt_topic_in").style.display = "none";
+		document.getElementById("li_mqtt_topic_out").style.display = "none";
+		document.getElementById("li_mesh_select").style.display = "none";	
+		break;
+	  case 2: // AS_WIFI_MQTTMESH_NODE
+		//Comandi eseguiti quando il valore dell'espressione coincide con valoreN
+		document.getElementById("li_wifi_ap_password").style.display = "none";
+		break;
+	  default:
+		//Comandi eseguiti quando nessuno dei valori coincide col valore dell'epressione
+		break;
+	};
+	
+	switch (actual_JSON.NODE_WIFI_TYPE) {
+	  case 0: // UID_HOSTNAME 
+		//Comandi eseguiti quando il valore dell'espressione coincide con valore1
+		document.getElementById("li_user_hostname").style.display = "none";		
+		break;
+	  case 1: // USER_HOSTNAME
+		//Comandi eseguiti quando il valore dell'espressione coincide con valore2
+		document.getElementById("li_hostname_suffix").style.display = "none";
+		break;
+	  default:
+		//Comandi eseguiti quando nessuno dei valori coincide col valore dell'epressione
+		break;
+	};			
+ });
+}
+
+function null_(){
+	};
+
+/*
+function pageRedirect_2(){
+	var redirect = "";
+ 	// Display message
+	if (actual_JSON.NODE_WIFI_TYPE == 0){
+		redirect = 'http://' + document.getElementById("hostname_suffix").value + Chip_ID;
+		document.getElementById("message").innerHTML = "Please wait, you are redirecting to : " + redirect.toLowerCase();
+	}	
+	else if (actual_JSON.NODE_WIFI_TYPE == 1){
+  		redirect = 'http://' + document.getElementById("user_hostname").value;
+		document.getElementById("message").innerHTML = "Please wait, you are redirecting to : " + redirect.toLowerCase();
+ 	};
+	var queryString = "?para1=" + redirect;
+	//window.location.href = "/redirect.html" + queryString;
+	window.location.href = "/redirect.html"
+	};
+	
+function pageRedirect(){
+	var delay = 2000; // time in milliseconds
+	var redirect = "";
+ 	// Display message
+	if (actual_JSON.NODE_WIFI_TYPE == 0){
+		redirect = 'http://' + document.getElementById("hostname_suffix").value + Chip_ID;
+		document.getElementById("message").innerHTML = "Please wait, you are redirecting to : " + redirect.toLowerCase();
+	}	
+	else if (actual_JSON.NODE_WIFI_TYPE == 1){
+  		redirect = 'http://' + document.getElementById("user_hostname").value;
+		document.getElementById("message").innerHTML = "Please wait, you are redirecting to : " + redirect.toLowerCase();
+ 	};
+ 
+ 	//document.getElementById("message").innerHTML = "Please wait, you are redirecting to : " + redirect.toLowerCase();
+ 
+	setTimeout(function(){
+		//window.location.href = redirect.toLowerCase();
+ 		window.location = redirect.toLowerCase();
+	},delay);
+}
+*/
+
+ </script>
+ 
+</head>
+<body id="main_body" onload="init()">
+
+	<img id="top" src="top.png" alt="">
+	<div id="form_container">
+
+		<center><img src="brand_logo.jpg"></center>
+		<form id="form_85679" class="appnitro"  method="POST" action="/submit">
+		  <div class="form_description">
+			<h2>STD-WIFI-SETTINGS</h2>
+            <h4 id="tag">userdescription </h4> 
+			<h4 id="firmware">Firmware ID:</h4>
+		</div>
+			<ul >
+        <li class="section_break">
+			<h3>WIFI MODE SETTINGS</h3>
+			<p></p>
+		</li>
+					<li id="li_node_wifi_settings" >
+		<label class="description" for="node_wifi_settings">NODE_WIFI_SETTINGS </label>
+		<div>
+		<select class="element select medium" id="node_wifi_settings" name="node_wifi_settings" disabled="disabled">
+            <option value="0" >AS_WIFI_STATION</option>
+            <option value="1" >AS_WIFI_ACCESS_POINT</option>
+            <option value="2" >AS_WIFI_MQTTMESH_NODE</option>
+		</select>
+		</div>
+		</li>		<li id="li_hostname_type" >
+		<label class="description" for="hostname_type">HOSTNAME </label>
+		<div>
+		<select class="element select medium" id="hostname_type" name="hostname_type" disabled="disabled">
+            <option value="0" selected="selected" >UID_HOSTNAME</option>
+            <option value="1" >USER_HOSTNAME</option>
+		</select>
+		</div>
+		</li>		<li id="li_hostname_suffix" >
+		<label class="description" for="hostname_suffix">SUFFIX HOSTNAME (UID_HOSTNAME)</label>
+		<div>
+			<input name="hostname_suffix" type="text" required class="element text medium" id="hostname_suffix" maxlength="255"/>
+		</div>
+        </li>		<li id="li_user_hostname" >
+		<label class="description" for="user_hostname">USER HOSTNAME (USER_HOSTNAME)</label>
+		<div>
+		  <input id="user_hostname" name="user_hostname" class="element text large" type="text" maxlength="255" required/>
+		</div>
+        </li>		<li id="li_hostname" >
+          <label class="description" for="hostname"> HOSTNAME</label>
+		<div>
+		  <input name="hostname" type="text" disabled required class="element text large" id="hostname" maxlength="255"/>
+		</div>
+		</li>
+        <li id="li_wifi_ap_password" >
+		<label class="description" for="wifi_ap_password">WIFI_AP_PASSWORD (AS_WIFI_ACCESS_POINT) </label>
+		<div>
+			<input id="wifi_ap_password" name="wifi_ap_password" class="element text medium" type="text" maxlength="255" required>
+		</div>
+		</li><li class="section_break">
+			<h3>URL</h3>
+			<p></p>
+		</li>	
+        <li id="li_uri" >
+		<label class="description" for="uri">MAIN URL </label>
+		<div>
+			<input name="uri" type="text" disabled required class="element text large" id="uri" maxlength="255"/>
+		</div>
+		</li>	
+        <li id="li_uri_ota" >
+		<label class="description" for="uri_ota">OTA URL </label>
+		<div>
+			<input name="uri_ota" type="text" disabled required class="element text large" id="uri_ota" maxlength="255"/>
+		</div>
+		</li>
+        <li id="li_uri_settings" >
+		<label class="description" for="uri_settings">SETTINGS URL </label>
+		<div>
+			<input name="uri_settings" type="text" disabled required class="element text large" id="uri_settings" maxlength="255"/>
+		</div>
+		</li>
+        <li id="li_uri_readconfig" >
+		<label class="description" for="uri_readconfig">READCONFIG URL </label>
+		<div>
+			<input name="uri_readconfig" type="text" disabled required class="element text large" id="uri_readconfig" maxlength="255"/>
+		</div>
+		</li>
+        <li class="section_break">
+			<h3>WIFI FTP SERVER SETTINGS</h3>
+			<p></p>
+		</li>		
+        <li id="li_ftp_server" >
+		<label class="description" for="uri_ota">FTP_SERVER </label>
+		<div>
+			<input name="ftp_server" type="text" disabled required class="element text medium" id="ftp_server" maxlength="255"/>
+		</div>
+		</li>
+        <li id="li_ftp_server_tcp_port" >
+		<label class="description" for="uri_ota">FTP_SERVER_TCP_PORT </label>
+		<div>
+			<input name="ftp_server_tcp_port" type="text" disabled required class="element text medium" id="ftp_server_tcp_port" maxlength="255"/>
+		</div>
+		</li>
+        <li id="li_ftp_username" >
+		<label class="description" for="uri_ota">FTP_USERNAME </label>
+		<div>
+			<input id="ftp_username" name="ftp_username" class="element text medium" type="text" maxlength="255" required/>
+		</div>
+		</li>		<li id="li_ftp_password" >
+		<label class="description" for="ftp_password">FTP_PASSWORD </label>
+		<div>
+			<input id="ftp_password" name="ftp_password" class="element text medium" type="text" maxlength="255" required/>
+		</div>
+		</li>		<li class="section_break">
+			<h3>STD PROCESS SETTINGS</h3>
+			<p></p>
+		</li>		<li id="li_sample" >
+		<label class="description" for="sample">SAMPLE </label>
+		<div>
+			<input id="sample" name="sample" class="element text small" type="number" maxlength="255" min="10" max="600" required/>
+		 sec</div>
+		</li>		<li id="li_userdescriptions" >
+		<label class="description" for="userdescriptions">USER DESCRIPTION TAG </label>
+		<div>
+			<input id="userdescriptions" name="userdescriptions" class="element text large" type="text" maxlength="255">
+		</div>
+		</li>		<li id="li_tmax" >
+		<label class="description" for="tmax">Tmax </label>
+		<div>
+			<input id="tmax" name="tmax" class="element text medium" type="number" maxlength="255" value="" min="5" max="55" required/>
+		°C</div>
+		</li>		<li id="li_tmin" >
+		<label class="description" for="tmin">Tmin </label>
+		<div>
+			<input id="tmin" name="tmin" class="element text medium" type="number" maxlength="255" value="" min="5" max="55" required/>
+		°C</div>
+		</li>		<li class="section_break">
+			<h3>MQTT MODE SETTINGS (AS_WIFI_MQTTMESH_NODE)</h3>
+			<p></p>
+		</li>		<li id="li_mqtt_wifi_password" >
+		<label class="description" for="mqtt_wifi_password">MQTT_WIFI_PASSWORD</label>
+		<div>
+			<input id="mqtt_wifi_password" name="mqtt_wifi_password" class="element text medium" type="text" maxlength="255" required/>
+		</div>
+		</li>		<li id="li_mqtt_mesh_password" >
+		<label class="description" for="mqtt_mesh_password">MQTTMESH_PASSWORD</label>
+		<div>
+			<input id="mqtt_mesh_password" name="mqtt_mesh_password" class="element text medium" type="text" maxlength="255" required/>
+		</div>
+		</li>		<li id="li_mqtt_server" >
+		<label class="description" for="mqtt_topic_out">MQTT_SERVER</label>
+		<div>
+			<input id="mqtt_server" name="mqtt_server" class="element text medium" type="text" maxlength="255" required/>
+		</div>
+		</li>
+        <li id="li_mqtt_server_tcp_port" >
+		<label class="description" for="mqtt_topic_out">MQTT_SERVER_TCP_PORT</label>
+		<div>
+			<input id="mqtt_server_tcp_port" name="mqtt_server_tcp_port" class="element text medium" type="number" maxlength="6" required/>
+		</div>
+		</li>
+        <li id="li_mqtt_topic_in" >
+		<label class="description" for="mqtt_topic_out">MQTT_TOPIC_IN (terminate with /)</label>
+		<div>
+			<input id="mqtt_topic_in" name="mqtt_topic_in" class="element text smal" type="text" maxlength="16" required/>
+		</div>
+		</li>
+        <li id="li_mqtt_topic_out" >
+		<label class="description" for="mqtt_topic_out">MQTT_TOPIC_OUT (terminate with /)</label>
+		<div>
+			<input id="mqtt_topic_out" name="mqtt_topic_out" class="element text smal" type="text" maxlength="16" required/>
+		</div>
+		</li>
+   			  <li id="li_mesh_select" >
+		
+		<span>
+        
+        <label class="" for="as_mesh_secure">
+        <input name="as_mesh_secure" type="checkbox" id="as_mesh_secure" value="1" />
+  			<i></i>
+   			MESH_SECURE
+        </label>
+        <br>
+        <label class="" for="as_mqtt_secure">
+		<input name="as_mqtt_secure" type="checkbox" id="as_mqtt_secure" value="1" />
+			<i></i>
+			MQTT_SECURE
+        </label>
+		</span>
+			  </li>
+   			  <li class="buttons">
+			    <input type="hidden" name="form_id" value="85679" />
+
+				<input class="btn warning" type="submit" name="submit" value="Submit" onclick='null_();'/>
+           	  <!-- Message -->
+              	
+              </li>
+              
+			</ul>
+		</form>        
+		<div id="footer">
+        	<button class="btn info" onclick="location.href='/'">Go Back</button>
+        </div>
+	</div>
+	<img id="bottom" src="bottom.png" alt="">
+	</body>
+</html>

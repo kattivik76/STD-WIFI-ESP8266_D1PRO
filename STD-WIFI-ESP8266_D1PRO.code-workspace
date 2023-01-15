@@ -1,0 +1,28 @@
+{
+	"folders": [
+		{
+			"name": "STD-WIFI-ESP8266_D1PRO",
+			"path": "."
+		}
+	],
+	"settings": {
+		"terminal.integrated.env.windows": {
+			"PATH": "C:\\Users\\mantero\\.platformio\\penv\\Scripts;C:\\Users\\mantero\\.platformio\\penv;C:\\Program Files\\Common Files\\Siemens\\Automation\\Simatic OAM\\bin;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\WiFi\\bin\\;C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\;C:\\Program Files (x86)\\Crickets Automation\\X Vision 7.1\\;C:\\Program Files (x86)\\Microsoft SQL Server\\Client SDK\\ODBC\\110\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\120\\DTS\\Binn\\;C:\\Program Files\\Microsoft VS Code\\bin;C:\\Users\\mantero\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\mantero\\AppData\\Local\\Programs\\Git\\cmd;C:\\Program Files\\Common Files\\Siemens\\Automation\\Simatic OAM\\bin;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\WiFi\\bin\\;C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\;C:\\Program Files (x86)\\Crickets Automation\\X Vision 7.1\\;C:\\Program Files (x86)\\Microsoft SQL Server\\Client SDK\\ODBC\\110\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\120\\DTS\\Binn\\;C:\\Program Files\\Microsoft VS Code\\bin;C:\\Users\\mantero\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\mantero\\AppData\\Local\\Programs\\Git\\cmd",
+			"PLATFORMIO_CALLER": "vscode"
+		},
+		"arduino.path": "C:\\\\_Personal Programs\\\\Arduino",
+		"files.associations": {
+			"*.tcc": "cpp",
+			"deque": "cpp",
+			"list": "cpp",
+			"string": "cpp",
+			"unordered_map": "cpp",
+			"vector": "cpp",
+			"functional": "cpp",
+			"streambuf": "cpp",
+			"tuple": "cpp",
+			"istream": "cpp",
+			"ostream": "cpp"
+		}
+	}
+}

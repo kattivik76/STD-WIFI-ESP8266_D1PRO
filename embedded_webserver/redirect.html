@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Redirect_to_new_host</title>
+<link rel="stylesheet" type="text/css" href="view.css" media="all">
+<script type="text/javascript" src="view.js"></script>
+
+<script type="text/javascript">
+ 
+function init() {
+	//var queryString = decodeURIComponent(window.location.search);
+	//queryString = queryString.substring(1);
+	urlParams = new URLSearchParams(window.location.search);
+	queryString = urlParams.get('param1');
+	
+	move(queryString);		
+}
+
+function move(redirect) {
+	var i = 0;
+	//document.getElementById("myProgress").style.display = "block";
+	document.getElementById("message").innerHTML = "Please wait, you are redirecting to : " + redirect.toLowerCase();
+	if (i == 0) {
+    	i = 1;
+    	var elem = document.getElementById("myBar");
+    	var width = 0;
+    	var id = setInterval(frame, 300);
+    	function frame() {
+      		if (width >= 100) {								
+        		clearInterval(id);
+        		i = 0;	
+				window.location = redirect.toLowerCase();
+				window.location = redirect.toLowerCase();
+				//pageRedirect();			
+      		} else {
+        		width++;
+        		elem.style.width = width + "%";
+        		elem.innerHTML = width  + "%";
+      		};		
+    	};
+	};
+}	
+</script>
+</head>
+<body id="main_body" onload="init()">
+
+	<img id="top" src="top.png" alt="">
+	<div id="form_container">
+
+		<center><img src="brand_logo.jpg" width="486" height="196" /></center>
+	  <form id="form_85679" class="appnitro">
+	    <div class="form_description">
+			
+		</div>
+		  <ul >
+        <li class="section_break">
+			<div id="message"></div>
+          <div id="myProgress"> 
+            <p>
+           	  <center>
+           	    Save data and redirect in 30sec
+           	  </center>
+	        </p>
+            <div id="myBar">0%                </div>
+          </div>
+		</li>
+		  </ul>
+		</form>
+		<div id="footer"></div>
+	</div>
+	<img id="bottom" src="bottom.png" alt="">
+	</body>
+</html>
