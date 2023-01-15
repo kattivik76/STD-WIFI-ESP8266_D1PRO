@@ -38,6 +38,8 @@
 ## Code status
 [![.github/workflows/main.yml](https://github.com/kattivik76/STD-WIFI-ESP8266_D1PRO/actions/workflows/main.yml/badge.svg?branch=main&event=release)](https://github.com/kattivik76/STD-WIFI-ESP8266_D1PRO/actions/workflows/main.yml)
 
+[![.github/workflows/main.yml](https://github.com/kattivik76/STD-WIFI-ESP8266_D1PRO/actions/workflows/main.yml/badge.svg)](https://github.com/kattivik76/STD-WIFI-ESP8266_D1PRO/actions/workflows/main.yml)
+
 ## Make a donation
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate/?hosted_button_id=38LNBHDPTZUU6)
 
