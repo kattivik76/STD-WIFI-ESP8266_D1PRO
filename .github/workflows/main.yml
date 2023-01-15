@@ -4,8 +4,7 @@
 
 name: Build examples with PlatformIO
 
-on:
-  pull_request:
+on: [push]
 
 permissions:
   contents: read
