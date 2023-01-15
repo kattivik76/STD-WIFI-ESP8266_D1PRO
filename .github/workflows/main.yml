@@ -1,4 +1,4 @@
-name: Test Configuration
+name: PlatformIO CI
 on: push
 
 jobs:
