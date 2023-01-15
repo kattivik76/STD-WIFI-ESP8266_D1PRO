@@ -35,9 +35,10 @@
     - settings.html (admin - admin)
     - update.html (embedded in libraries)
 
-
+## Code status
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://github.com/kattivik76/STD-WIFI-ESP8266_D1PRO)
 
+## Make a donation
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate/?hosted_button_id=38LNBHDPTZUU6)
 
 
