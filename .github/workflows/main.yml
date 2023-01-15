@@ -1,10 +1,11 @@
+esphome:
 name: PlatformIO CI
-on: push
-
-espressif8266:
+  platform: ESP8266
   board: d1_mini
   framework:
     type: arduino
+  
+on: push
     
 jobs:
   main:
