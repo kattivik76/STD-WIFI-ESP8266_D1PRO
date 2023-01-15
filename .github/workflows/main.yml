@@ -1,31 +1,39 @@
-name: PlatformIO CI
+# We do not distribute any environment settings, so just try to build some sketches
+# using the 'master' branch and using the uploaded toolchain version via get.py
+# Also, limit the amount of sketches and simply 
 
-on: [push]
+name: Build examples with PlatformIO
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
 
 jobs:
-  build:
-
+  build-pio:
+    name: Linux (random sketches)
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        shell: bash
     steps:
-    - uses: actions/checkout@v2
-    - name: Cache pip
-      uses: actions/cache@v2
+    - uses: actions/checkout@v3
       with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
-    - name: Cache PlatformIO
-      uses: actions/cache@v2
+        submodules: true
+    - uses: actions/setup-python@v4
       with:
-        path: ~/.platformio
-        key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
-    - name: Set up Python
-      uses: actions/setup-python@v2
-    - name: Install PlatformIO
+        python-version: '3.x'
+    - uses: actions/cache@v3
+      with:
+        path: |
+          tools/dist
+          ~/.cache/pip
+          ~/.platformio/.cache
+        key: ${{ runner.os }}-${{ hashFiles('package/package_esp8266com_index.template.json', 'tests/common.sh', 'tests/build.sh') }}
+    - name: Build
+      env:
+        ESP8266_ARDUINO_BUILDER: "platformio"
       run: |
-        python -m pip install --upgrade pip
-        pip install --upgrade platformio
-    - name: Run PlatformIO
-      run: pio run -e <ID_1> -e <ID_2> -e <ID_N>
+        pip install -U platformio
+        env ESP8266_ARDUINO_SKETCHES="$(find libraries/ -name '*.ino' | shuf -n 10 -)" bash ./tests/build.sh
