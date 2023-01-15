@@ -1,6 +1,11 @@
 name: PlatformIO CI
 on: push
 
+espressif8266:
+  board: d1_mini
+  framework:
+    type: arduino
+    
 jobs:
   main:
     name: Main
