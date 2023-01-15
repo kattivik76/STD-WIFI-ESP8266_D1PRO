@@ -30,5 +30,5 @@ jobs:
         #run: pio lib -g install "JsonStreamingParser" "thingpulse/ESP8266 and ESP32 OLED driver for SSD1306 displays@^4.2.0" "WifiManager@>=0.15.0-beta"
       - name: Run PlatformIO
         run: pio ci --lib="." --project-option="lib_deps=JsonStreamingParser" --board=nodemcuv2 --board=d1_mini
-        env:
-          PLATFORMIO_CI_SRC: ${{ matrix.example }}
+        #env:
+        #  PLATFORMIO_CI_SRC: ${{ matrix.example }}
