@@ -1,38 +1,19 @@
-name: build
-on: [pull_request, push]
+name: Test Configuration
+on: push
+
 jobs:
-  arduino-build:
+  main:
+    name: Main
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Build with Arduino-CLI
-        run: bash ci/build-arduino.sh
-
-  pio-builds:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        product:
-          - STD-WIFI-ESP8266_D1PRO
-        platform:
-          - d1_mini
-          # - mini32 # When ESP32 is supported, one-line change to enable 2x product builds
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Build
-        env:
-          FIB_PRODUCT: ${{ matrix.product }}__${{ matrix.platform }}
-        run: bash ci/build-platformio.sh
-
-      - uses: actions/upload-artifact@v2
+      - uses: actions/checkout@master
+      - name: Setup Python
+        uses: actions/setup-python@master
         with:
-          name: firmware
-          path: |
-            .pio/build/*/firmware.bin
-            .pio/build/*/firmware.elf
-            .pio/build/*/littlefs.bin
+          python-version: '3.x'
+      - name: Install Platform IO
+        run: |
+          python -m pip install --upgrade pip
+          pip install -U platformio
+      - name: Build
+        run: platformio run
