@@ -70,7 +70,7 @@
     // ----------------------------------------------------
 
     int MQTT_FIRMWARE_ID_H = 0x0007;
-    const char* MQTT_FIRMWARE_VER_H = "1.3.2";
+    const char* MQTT_FIRMWARE_VER_H = "1.3.4";
 
     #define NETWORK_LIST { \
                             WIFI_CONN("FRITZ!Box 7590 XO", "07532074360330867860", NULL, 0), \

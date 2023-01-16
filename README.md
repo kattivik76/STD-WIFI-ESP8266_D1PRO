@@ -34,6 +34,8 @@
  - 11.11.2019 - v1.3.3 Implement html session control and login with username and password to:
     - settings.html (admin - admin)
     - update.html (embedded in libraries)
+ - 15.01.2023 - v1.3.4 Implement GitHub repository with version control and automatic build
+ - 16.01.2023 - v1.3.4 Remove String.h library
 
 ## Code status
 [![PlatformIO CI](https://github.com/kattivik76/STD-WIFI-ESP8266_D1PRO/actions/workflows/workflow.yml/badge.svg?branch=main)](https://github.com/kattivik76/STD-WIFI-ESP8266_D1PRO/actions/workflows/workflow.yml)
