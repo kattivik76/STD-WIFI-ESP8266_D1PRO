@@ -66,7 +66,7 @@ jobs:
           #  platforms: |
           #    - name: esp32:esp32
           #      source-url: https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
-          ¶  libraries: ""
+          #  libraries: ""
 
     steps:
       - name: Checkout repository
