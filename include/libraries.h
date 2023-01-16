@@ -3,7 +3,6 @@
 
     #include <Arduino.h>
     #include "Tasker.h"
-    // #include "String"
 
     // libraries
     #include <OneWire.h>

@@ -29,7 +29,8 @@
  *   11.11.2019 - v1.3.3 Implement html session control and login with username and password to:
  *        settings.html (admin - admin)
  *        update.html (embedded in libraries)
- *   15.01.2023 - v1.3.3 Implement GitHub repository with version control
+ *   15.01.2023 - v1.3.3 Implement GitHub repository with version control and automatic build
+ *   16.01.2023 - v1.3.4 Remove String.h library
  */
 // ----------------------------------------------------
 // <<< Version History      ---------------------------
