@@ -36,6 +36,8 @@
     - update.html (embedded in libraries)
 
 ## Code status
+[![PlatformIO CI](https://github.com/kattivik76/STD-WIFI-ESP8266_D1PRO/actions/workflows/workflow.yml/badge.svg?branch=main)](https://github.com/kattivik76/STD-WIFI-ESP8266_D1PRO/actions/workflows/workflow.yml)
+
 [![.github/workflows/main.yml](https://github.com/kattivik76/STD-WIFI-ESP8266_D1PRO/actions/workflows/main.yml/badge.svg?branch=main&event=release)](https://github.com/kattivik76/STD-WIFI-ESP8266_D1PRO/actions/workflows/main.yml)
 
 [![.github/workflows/main.yml](https://github.com/kattivik76/STD-WIFI-ESP8266_D1PRO/actions/workflows/main.yml/badge.svg)](https://github.com/kattivik76/STD-WIFI-ESP8266_D1PRO/actions/workflows/main.yml)
