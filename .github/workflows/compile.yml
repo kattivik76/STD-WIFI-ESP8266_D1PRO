@@ -59,7 +59,7 @@ jobs:
           #  libraries: ""
           - fqbn: esp8266:esp8266:huzzah
             platforms: |
-              - name: esp8266:esp8266
+              - name: esp8266:d1_mini
                 source-url: https://arduino.esp8266.com/stable/package_esp8266com_index.json
             libraries: ""
           #- fqbn: "esp32:esp32:esp32"
@@ -83,7 +83,7 @@ jobs:
             - source-path: ./
             ${{ matrix.board.libraries }}
           sketch-paths: |
-            - examples
+            - src
           enable-deltas-report: true
           sketches-report-path: ${{ env.SKETCHES_REPORTS_PATH }}
 
